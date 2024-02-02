@@ -4,7 +4,11 @@ import { getUserAuth } from "@/lib/auth/utils";
 import React from "react";
 
 export default async function Home() {
-  // const { session } = await getUserAuth();
+  const { session } = await getUserAuth();
+
+  if (session === null) {
+    return <SignIn />;
+  }
 
   return (
     <main className="flex h-full grow flex-col space-y-4 ">

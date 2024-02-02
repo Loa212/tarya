@@ -41,7 +41,6 @@ export default function RootLayout({
               </div>
             </TrpcProvider>
           </NextAuthProvider>
-
           <Toaster />
         </ThemeProvider>
       </body>
