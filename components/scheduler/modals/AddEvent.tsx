@@ -17,6 +17,7 @@ import {
   DrawerDescription,
   DrawerFooter,
   DrawerHeader,
+  DrawerOverlay,
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
@@ -25,7 +26,7 @@ import { Label } from "@/components/ui/label";
 import { useMediaQuery } from "usehooks-ts";
 import { useSchedulerActions } from "../../../lib/hooks/query-params";
 import { format as dateFormat } from "date-fns";
-import { it, enUS } from "date-fns/locale";
+import { enUS } from "date-fns/locale";
 
 export function AddEvent() {
   const { actions, close, SelectedDate } = useSchedulerActions();
@@ -55,7 +56,8 @@ export function AddEvent() {
   }
 
   return (
-    <Drawer open={!!actions.New} onOpenChange={close}>
+    <Drawer open={!!actions.New} onClose={close}>
+      <DrawerOverlay onClick={close} />
       <DrawerContent>
         <DrawerHeader className="text-left">
           <DrawerTitle>{title}</DrawerTitle>
@@ -64,7 +66,9 @@ export function AddEvent() {
         <ProfileForm className="px-4" />
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button onClick={close} variant="outline">
+              Cancel
+            </Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
