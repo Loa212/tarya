@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { type Customer, CompleteCustomer } from "@/lib/db/schema/customers";
 import Modal from "@/components/shared/Modal";
 
-import { useOptimisticCustomers } from "@/app/(app)/customers/useOptimisticCustomers";
+import { useOptimisticCustomers } from "@/app/_(app)/customers/useOptimisticCustomers";
 import { Button } from "@/components/ui/button";
 import CustomerForm from "./CustomerForm";
 import { PlusIcon } from "lucide-react";
@@ -17,15 +17,11 @@ type TOpenModal = (customer?: Customer) => void;
 
 export default function CustomerList({
   customers,
-   
 }: {
   customers: CompleteCustomer[];
-   
 }) {
-  const { optimisticCustomers, addOptimisticCustomer } = useOptimisticCustomers(
-    customers,
-     
-  );
+  const { optimisticCustomers, addOptimisticCustomer } =
+    useOptimisticCustomers(customers);
   const [open, setOpen] = useState(false);
   const [activeCustomer, setActiveCustomer] = useState<Customer | null>(null);
   const openModal = (customer?: Customer) => {
@@ -46,7 +42,6 @@ export default function CustomerList({
           addOptimistic={addOptimisticCustomer}
           openModal={openModal}
           closeModal={closeModal}
-          
         />
       </Modal>
       <div className="absolute right-0 top-0 ">
@@ -86,22 +81,19 @@ const Customer = ({
     ? pathname
     : pathname + "/customers/";
 
-
   return (
     <li
       className={cn(
         "flex justify-between my-2",
         mutating ? "opacity-30 animate-pulse" : "",
-        deleting ? "text-destructive" : "",
+        deleting ? "text-destructive" : ""
       )}
     >
       <div className="w-full">
         <div>{customer.name}</div>
       </div>
       <Button variant={"link"} asChild>
-        <Link href={ basePath + "/" + customer.id }>
-          Edit
-        </Link>
+        <Link href={basePath + "/" + customer.id}>Edit</Link>
       </Button>
     </li>
   );
@@ -118,7 +110,8 @@ const EmptyState = ({ openModal }: { openModal: TOpenModal }) => {
       </p>
       <div className="mt-6">
         <Button onClick={() => openModal()}>
-          <PlusIcon className="h-4" /> New Customers </Button>
+          <PlusIcon className="h-4" /> New Customers{" "}
+        </Button>
       </div>
     </div>
   );

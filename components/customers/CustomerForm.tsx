@@ -7,14 +7,12 @@ import { toast } from "sonner";
 import { useValidatedForm } from "@/lib/hooks/useValidatedForm";
 
 import { type Action, cn } from "@/lib/utils";
-import { type TAddOptimistic } from "@/app/(app)/customers/useOptimisticCustomers";
+import { type TAddOptimistic } from "@/app/_(app)/customers/useOptimisticCustomers";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { useBackPath } from "@/components/shared/BackButton";
-
-
 
 import { type Customer, insertCustomerParams } from "@/lib/db/schema/customers";
 import {
@@ -23,9 +21,7 @@ import {
   updateCustomerAction,
 } from "@/lib/actions/customers";
 
-
 const CustomerForm = ({
-  
   customer,
   openModal,
   closeModal,
@@ -33,7 +29,7 @@ const CustomerForm = ({
   postSuccess,
 }: {
   customer?: Customer | null;
-  
+
   openModal?: (customer?: Customer) => void;
   closeModal?: () => void;
   addOptimistic?: TAddOptimistic;
@@ -42,17 +38,16 @@ const CustomerForm = ({
   const { errors, hasErrors, setErrors, handleChange } =
     useValidatedForm<Customer>(insertCustomerParams);
   const editing = !!customer?.id;
-  
+
   const [isDeleting, setIsDeleting] = useState(false);
   const [pending, startMutation] = useTransition();
 
   const router = useRouter();
   const backpath = useBackPath("customers");
 
-
   const onSuccess = (
     action: Action,
-    data?: { error: string; values: Customer },
+    data?: { error: string; values: Customer }
   ) => {
     const failed = Boolean(data?.error);
     if (failed) {
@@ -72,7 +67,9 @@ const CustomerForm = ({
     setErrors(null);
 
     const payload = Object.fromEntries(data.entries());
-    const customerParsed = await insertCustomerParams.safeParseAsync({  ...payload });
+    const customerParsed = await insertCustomerParams.safeParseAsync({
+      ...payload,
+    });
     if (!customerParsed.success) {
       setErrors(customerParsed?.error.flatten().fieldErrors);
       return;
@@ -89,10 +86,11 @@ const CustomerForm = ({
     };
     try {
       startMutation(async () => {
-        addOptimistic && addOptimistic({
-          data: pendingCustomer,
-          action: editing ? "update" : "create",
-        });
+        addOptimistic &&
+          addOptimistic({
+            data: pendingCustomer,
+            action: editing ? "update" : "create",
+          });
 
         const error = editing
           ? await updateCustomerAction({ ...values, id: customer.id })
@@ -100,11 +98,11 @@ const CustomerForm = ({
 
         const errorFormatted = {
           error: error ?? "Error",
-          values: pendingCustomer 
+          values: pendingCustomer,
         };
         onSuccess(
           editing ? "update" : "create",
-          error ? errorFormatted : undefined,
+          error ? errorFormatted : undefined
         );
       });
     } catch (e) {
@@ -117,11 +115,11 @@ const CustomerForm = ({
   return (
     <form action={handleSubmit} onChange={handleChange} className={"space-y-8"}>
       {/* Schema fields start */}
-              <div>
+      <div>
         <Label
           className={cn(
             "mb-2 inline-block",
-            errors?.name ? "text-destructive" : "",
+            errors?.name ? "text-destructive" : ""
           )}
         >
           Name
@@ -138,11 +136,11 @@ const CustomerForm = ({
           <div className="h-6" />
         )}
       </div>
-        <div>
+      <div>
         <Label
           className={cn(
             "mb-2 inline-block",
-            errors?.surname ? "text-destructive" : "",
+            errors?.surname ? "text-destructive" : ""
           )}
         >
           Surname
@@ -159,11 +157,11 @@ const CustomerForm = ({
           <div className="h-6" />
         )}
       </div>
-        <div>
+      <div>
         <Label
           className={cn(
             "mb-2 inline-block",
-            errors?.mail ? "text-destructive" : "",
+            errors?.mail ? "text-destructive" : ""
           )}
         >
           Mail
@@ -195,7 +193,8 @@ const CustomerForm = ({
             setIsDeleting(true);
             closeModal && closeModal();
             startMutation(async () => {
-              addOptimistic && addOptimistic({ action: "delete", data: customer });
+              addOptimistic &&
+                addOptimistic({ action: "delete", data: customer });
               const error = await deleteCustomerAction(customer.id);
               setIsDeleting(false);
               const errorFormatted = {
