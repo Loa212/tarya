@@ -140,27 +140,6 @@ const CustomerForm = ({
         <Label
           className={cn(
             "mb-2 inline-block",
-            errors?.surname ? "text-destructive" : ""
-          )}
-        >
-          Surname
-        </Label>
-        <Input
-          type="text"
-          name="surname"
-          className={cn(errors?.surname ? "ring ring-destructive" : "")}
-          defaultValue={customer?.surname ?? ""}
-        />
-        {errors?.surname ? (
-          <p className="text-xs text-destructive mt-2">{errors.surname[0]}</p>
-        ) : (
-          <div className="h-6" />
-        )}
-      </div>
-      <div>
-        <Label
-          className={cn(
-            "mb-2 inline-block",
             errors?.mail ? "text-destructive" : ""
           )}
         >
