@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { type Customer, CompleteCustomer } from "@/lib/db/schema/customers";
 import Modal from "@/components/shared/Modal";
 
-import { useOptimisticCustomers } from "@/app/_(app)/customers/useOptimisticCustomers";
+import { useOptimisticCustomers } from "@/app/(app)/customers/useOptimisticCustomers";
 import { Button } from "@/components/ui/button";
 import CustomerForm from "./CustomerForm";
 import { PlusIcon } from "lucide-react";
