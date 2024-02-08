@@ -2,12 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { Toaster } from "@/components/ui/toaster";
-import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar";
-import NextAuthProvider from "@/lib/auth/Provider";
-import TrpcProvider from "@/lib/trpc/Provider";
-import { cookies } from "next/headers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,32 +12,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <NextAuthProvider>
-            <TrpcProvider cookies={cookies().toString()}>
-              <div className="flex">
-                <Sidebar />
-                <main className="flex-1 p-8 pt-2 md:p-8">
-                  <Navbar />
-                  {children}
-                </main>
-              </div>
-            </TrpcProvider>
-          </NextAuthProvider>
-          <Toaster />
-        </ThemeProvider>
-      </body>
+<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>{children}</ThemeProvider>
+</body>
     </html>
   );
 }

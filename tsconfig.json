@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "target": "esnext",
     "lib": [
       "dom",
       "dom.iterable",
@@ -25,6 +24,9 @@
     "paths": {
       "@/*": [
         "./*"
+      ],
+      "@/zodAutoGenSchemas": [
+        "./prisma/zod/index"
       ]
     },
     "baseUrl": "./"
