@@ -82,7 +82,6 @@ model Subscription {
 model Customer {
   id        String   @id @default(cuid())
   name      String
-  surname   String?
   mail      String?
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)

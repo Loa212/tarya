@@ -4,7 +4,6 @@ import { CompleteUser, relatedUserSchema } from "./index"
 export const customerSchema = z.object({
   id: z.string(),
   name: z.string(),
-  surname: z.string().nullish(),
   mail: z.string().nullish(),
   userId: z.string(),
   createdAt: z.date(),
