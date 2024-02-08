@@ -2,18 +2,18 @@
   "hasSrc": false,
   "packages": [
     "shadcn-ui",
-    "drizzle",
+    "prisma",
     "next-auth",
     "trpc",
-    "resend"
+    "resend",
+    "stripe"
   ],
-  "preferredPackageManager": "pnpm",
+  "preferredPackageManager": "bun",
   "t3": false,
   "alias": "@",
   "rootPath": "",
   "componentLib": "shadcn-ui",
+  "orm": "prisma",
   "driver": "pg",
-  "provider": "vercel-pg",
-  "orm": "drizzle",
   "auth": "next-auth"
 }

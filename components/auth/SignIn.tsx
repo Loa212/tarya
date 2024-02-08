@@ -9,12 +9,12 @@ export default function SignIn() {
 
   if (session) {
     return (
-      <div className="flex items-center justify-start gap-3">
+      <div className="space-y-3">
         <p>
           Signed in as{" "}
           <span className="font-medium">{session.user?.email}</span>
         </p>
-        <Button size={"sm"} variant={"destructive"} onClick={() => signOut()}>
+        <Button variant={"destructive"} onClick={() => signOut({ callbackUrl: "/" })}>
           Sign out
         </Button>
       </div>

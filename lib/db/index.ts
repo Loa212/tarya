@@ -1,4 +1,15 @@
-import { sql } from "@vercel/postgres";
-import { drizzle } from "drizzle-orm/vercel-postgres";
+import { PrismaClient } from "@prisma/client";
 
-export const db = drizzle(sql);
+declare global {
+  // allow global `var` declarations
+  // eslint-disable-next-line no-var
+  var db: PrismaClient | undefined;
+}
+
+export const db =
+  global.db ||
+  new PrismaClient({
+    log: ["query"],
+  });
+
+if (process.env.NODE_ENV !== "production") global.db = db;
